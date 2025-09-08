@@ -28,9 +28,8 @@ export function Humanizer() {
 
     startTransition(async () => {
       try {
-        await humanizeTextFlow({ text: inputText }, (chunk) => {
-          setHumanizedText((prev) => prev + chunk);
-        });
+        const result = await humanizeTextFlow({ text: inputText });
+        setHumanizedText(result);
       } catch (e) {
         setError('Une erreur est survenue. Veuillez réessayer.');
         console.error(e);
