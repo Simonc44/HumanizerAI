@@ -28,6 +28,6 @@ export const humanizeTextFlow = ai.defineFlow(
       prompt: `Rewrite the following text to sound more human. Focus on improving its engagement and authenticity. Your response should be only the rewritten text, without any preamble.\n\nText: ${input.text}`,
     });
 
-    return output;
+    return output ?? '';
   }
 );
