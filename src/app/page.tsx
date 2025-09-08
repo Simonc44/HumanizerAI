@@ -59,35 +59,35 @@ export default function Home() {
   };
   
   const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
+    hidden: { opacity: 0, y: 20, scale: 0.98 },
+    visible: { opacity: 1, y: 0, scale: 1 },
   };
 
   return (
     <div className="bg-background min-h-screen">
       <main className="container mx-auto px-4 py-8 md:py-16">
         <div className="max-w-4xl mx-auto">
-          <header className="text-center mb-10">
-            <h1 className="text-4xl md:text-6xl font-extrabold font-headline tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-400">
+          <header className="text-center mb-12">
+            <h1 className="text-4xl md:text-6xl font-bold font-headline tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-blue-400 to-purple-500">
               Humanizer AI
             </h1>
             <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-              Transformez votre texte généré par l'IA en un contenu qui se lit comme s'il avait été écrit par un humain.
+              Transform your AI-generated text into content that reads like it was written by a human.
             </p>
           </header>
 
-          <Card className="w-full shadow-lg border-2 border-primary/20 bg-card/50">
+          <Card className="w-full shadow-2xl border-border bg-card/80 backdrop-blur-sm">
             <CardContent className="p-6">
               <div className="grid gap-4">
                 <Textarea
-                  placeholder="Collez votre texte ici pour le rendre plus humain..."
+                  placeholder="Paste your text here to make it more human..."
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
                   className="min-h-[200px] text-base resize-y focus:ring-primary bg-transparent"
                   disabled={isPending}
                 />
                 {error && <p className="text-sm text-destructive">{error}</p>}
-                <Button onClick={handleHumanize} disabled={isPending || !inputText.trim()} size="lg" className="justify-self-end bg-primary hover:bg-primary/90 text-primary-foreground font-bold shadow-md transition-all duration-300 hover:shadow-primary/40">
+                <Button onClick={handleHumanize} disabled={isPending || !inputText.trim()} size="lg" className="justify-self-end bg-primary hover:bg-primary/90 text-primary-foreground font-bold shadow-lg transition-all duration-300 hover:shadow-primary/40 active:scale-95">
                   {isPending ? (
                     <LoaderCircle className="mr-2 h-5 w-5 animate-spin" />
                   ) : (
@@ -108,7 +108,7 @@ export default function Home() {
                 exit={{ opacity: 0, y: -20 }}
               >
                 <LoaderCircle className="h-10 w-10 animate-spin text-primary" />
-                <p className="text-muted-foreground font-medium">Analyse et réécriture de votre texte...</p>
+                <p className="text-muted-foreground font-medium">Analyzing and rewriting your text...</p>
               </motion.div>
             )}
           </AnimatePresence>
