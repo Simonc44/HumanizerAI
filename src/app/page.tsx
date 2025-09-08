@@ -59,8 +59,16 @@ export default function Home() {
   };
   
   const cardVariants = {
-    hidden: { opacity: 0, y: 20, scale: 0.98 },
-    visible: { opacity: 1, y: 0, scale: 1 },
+    hidden: { opacity: 0, y: 30, scale: 0.95 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      scale: 1,
+      transition: {
+        duration: 0.5,
+        ease: [0.4, 0, 0.2, 1]
+      }
+    },
   };
 
   return (
@@ -68,26 +76,34 @@ export default function Home() {
       <main className="container mx-auto px-4 py-8 md:py-16">
         <div className="max-w-4xl mx-auto">
           <header className="text-center mb-12">
-            <h1 className="text-4xl md:text-6xl font-bold font-headline tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-blue-400 to-purple-500">
+            <motion.h1 
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-4xl md:text-6xl font-bold font-headline tracking-tight text-primary">
               Humanizer AI
-            </h1>
-            <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+            </motion.h1>
+            <motion.p 
+              initial={{ opacity: 0, y: -20, transition: { delay: 0.1 } }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
               Transform your AI-generated text into content that reads like it was written by a human.
-            </p>
+            </motion.p>
           </header>
 
-          <Card className="w-full shadow-2xl border-border bg-card/80 backdrop-blur-sm">
+          <Card className="w-full shadow-lg border-border bg-card">
             <CardContent className="p-6">
               <div className="grid gap-4">
                 <Textarea
                   placeholder="Paste your text here to make it more human..."
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
-                  className="min-h-[200px] text-base resize-y focus:ring-primary bg-transparent"
+                  className="min-h-[200px] text-base resize-y focus:ring-primary bg-input"
                   disabled={isPending}
                 />
                 {error && <p className="text-sm text-destructive">{error}</p>}
-                <Button onClick={handleHumanize} disabled={isPending || !inputText.trim()} size="lg" className="justify-self-end bg-primary hover:bg-primary/90 text-primary-foreground font-bold shadow-lg transition-all duration-300 hover:shadow-primary/40 active:scale-95">
+                <Button onClick={handleHumanize} disabled={isPending || !inputText.trim()} size="lg" className="justify-self-end bg-primary hover:bg-primary/90 text-primary-foreground font-bold shadow-md transition-all duration-300 hover:shadow-lg active:scale-95">
                   {isPending ? (
                     <LoaderCircle className="mr-2 h-5 w-5 animate-spin" />
                   ) : (
@@ -106,6 +122,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
               >
                 <LoaderCircle className="h-10 w-10 animate-spin text-primary" />
                 <p className="text-muted-foreground font-medium">Analyzing and rewriting your text...</p>
@@ -122,13 +139,13 @@ export default function Home() {
               variants={{
                 visible: {
                   transition: {
-                    staggerChildren: 0.2,
+                    staggerChildren: 0.1,
                   },
                 },
               }}
             >
               <motion.div variants={cardVariants}>
-                <Card className="shadow-lg h-full bg-card/50 border-border/50">
+                <Card className="shadow-md h-full bg-card border-border/50">
                   <CardHeader>
                     <CardTitle className="text-foreground/80">Original</CardTitle>
                     <CardDescription>
@@ -139,7 +156,7 @@ export default function Home() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-foreground/80 leading-relaxed p-4 border rounded-md bg-muted/30 max-h-[400px] overflow-y-auto text-sm">
+                    <div className="text-muted-foreground leading-relaxed p-4 border rounded-md bg-muted/50 max-h-[400px] overflow-y-auto text-sm">
                       {originalText}
                     </div>
                   </CardContent>
@@ -147,7 +164,7 @@ export default function Home() {
               </motion.div>
 
               <motion.div variants={cardVariants}>
-                <Card className="shadow-xl border-2 border-primary h-full bg-card/50">
+                <Card className="shadow-lg border-2 border-primary h-full bg-card">
                   <CardHeader>
                     <div className="flex justify-between items-start gap-4">
                       <div>
