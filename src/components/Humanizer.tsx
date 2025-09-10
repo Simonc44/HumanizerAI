@@ -1,14 +1,36 @@
 'use client';
 
-import { useState, useTransition } from 'react';
-import { motion } from 'framer-motion';
-import { Copy, Wand2, LoaderCircle, PenLine } from 'lucide-react';
+import React, { useState, useTransition } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Copy, Wand2, LoaderCircle } from 'lucide-react';
 import { humanizeText } from '@/ai/flows/humanize-text';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import type { HumanizeTextInput } from '@/ai/flows/schemas';
+
+const ScrambledText = ({ text }: { text: string }) => {
+  return (
+    <AnimatePresence>
+      <div className="flex flex-col items-center justify-center h-full min-h-[280px]">
+        <div className="text-center">
+        {text.split('').map((char, i) => (
+          <motion.span
+            key={i}
+            style={{ animationDelay: `${Math.random() * 1.5}s` }}
+            className="scramble-char text-primary"
+          >
+            {char}
+          </motion.span>
+        ))}
+        </div>
+        <p className="mt-4 text-sm text-muted-foreground animate-pulse">Humanisation en cours...</p>
+      </div>
+    </AnimatePresence>
+  );
+};
+
 
 export function Humanizer() {
   const [isPending, startTransition] = useTransition();
@@ -49,7 +71,7 @@ export function Humanizer() {
 
   return (
     <div className="grid md:grid-cols-2 gap-8 items-start">
-      <motion.div whileHover={{ y: -5, transition: { duration: 0.2 } }}>
+      <motion.div>
         <Card className="w-full shadow-2xl rounded-2xl bg-card/50 backdrop-blur-xl border-white/10">
           <CardHeader>
               <CardTitle className="text-xl font-semibold flex items-center text-foreground">
@@ -85,7 +107,7 @@ export function Humanizer() {
         </Card>
       </motion.div>
 
-      <motion.div whileHover={{ y: -5, transition: { duration: 0.2 } }}>
+      <motion.div>
         <Card className="w-full shadow-2xl rounded-2xl bg-card/50 backdrop-blur-xl border-white/10 min-h-[520px]">
           <CardHeader className="flex flex-row justify-between items-center">
               <CardTitle className="text-xl font-semibold flex items-center text-foreground">
@@ -109,19 +131,37 @@ export function Humanizer() {
             <div 
               className="prose prose-base dark:prose-invert max-w-none text-white/90 min-h-[350px] p-4 bg-black/20 rounded-xl border border-white/10"
             >
+              <AnimatePresence mode="wait">
               {isPending ? (
-                 <div className="flex flex-col items-center justify-center h-full min-h-[280px]">
-                  <LoaderCircle className="w-8 h-8 text-primary animate-spin" />
-                  <p className="mt-4 text-sm text-muted-foreground animate-pulse">Humanisation en cours...</p>
-                 </div>
+                <motion.div
+                  key="loading"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  <ScrambledText text="HUMANIZING..." />
+                </motion.div>
               ) : humanizedText ? (
-                  <p>{humanizedText}</p>
+                <motion.p
+                  key="result"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  {humanizedText}
+                </motion.p>
               ) : (
-                <div className="text-white flex flex-col gap-2 items-center justify-center h-full min-h-[280px]">
-                  <PenLine className="w-10 h-10 text-white/50" />
+                <motion.div
+                  key="placeholder"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="text-white flex flex-col gap-2 items-center justify-center h-full min-h-[280px]"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-pen-line w-10 h-10 text-white/50"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
                   <p className="font-medium">Le résultat humanisé apparaîtra ici...</p>
-                </div>
+                </motion.div>
               )}
+              </AnimatePresence>
             </div>
           </CardContent>
         </Card>
