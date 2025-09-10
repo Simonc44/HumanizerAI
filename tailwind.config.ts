@@ -88,20 +88,10 @@ export default {
             height: '0',
           },
         },
-        'writing-pencil': {
-          '0%, 100%': { transform: 'rotate(-10deg)' },
-          '50%': { transform: 'rotate(0deg) translateX(2px)' },
-        },
-        'typing-cursor': {
-          '0%, 100%': { opacity: '1' },
-          '50%': { opacity: '0' },
-        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'writing-pencil': 'writing-pencil 0.7s infinite ease-in-out',
-        'typing-cursor': 'typing-cursor 0.7s step-end infinite',
       },
     },
   },
