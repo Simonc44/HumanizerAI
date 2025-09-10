@@ -74,7 +74,7 @@ export function AiDetector() {
             placeholder="Collez le texte à analyser..."
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
-            className="min-h-[250px] text-base rounded-lg bg-black/20 focus-visible:ring-primary/80 border-white/10 text-white"
+            className="min-h-[250px] text-base rounded-lg bg-black/20 focus-visible:ring-primary/80 border-white/10 text-white placeholder:text-white/70"
             disabled={isPending}
           />
           {error && <p className="text-sm text-destructive">{error}</p>}

@@ -63,7 +63,7 @@ export function Humanizer() {
                 placeholder="Collez votre texte IA ici..."
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
-                className="min-h-[300px] text-base rounded-xl bg-black/20 border-white/10 focus-visible:ring-primary/80 focus-visible:ring-2 text-white"
+                className="min-h-[300px] text-base rounded-xl bg-black/20 border-white/10 focus-visible:ring-primary/80 focus-visible:ring-2 text-white placeholder:text-white/70"
                 disabled={isPending}
               />
               {error && <p className="text-sm text-destructive font-medium px-1">{error}</p>}
@@ -116,8 +116,8 @@ export function Humanizer() {
               ) : humanizedText ? (
                   <p>{humanizedText}</p>
               ) : (
-                <div className="text-muted-foreground flex flex-col gap-2 items-center justify-center h-full min-h-[280px]">
-                  <PenLine className="w-10 h-10 text-muted-foreground/50" />
+                <div className="text-white flex flex-col gap-2 items-center justify-center h-full min-h-[280px]">
+                  <PenLine className="w-10 h-10 text-white/50" />
                   <p className="font-medium">Le résultat humanisé apparaîtra ici...</p>
                 </div>
               )}

@@ -42,7 +42,7 @@ export default function Home() {
         >
           <motion.header variants={itemVariants} className="text-center mb-16">
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight pb-2 group">
-                <span className="bg-clip-text text-transparent bg-gradient-to-b from-foreground to-muted-foreground/80 group-hover:text-shine transition-all duration-500">
+                <span className="text-shine bg-gradient-to-br from-white via-neutral-300 to-neutral-500">
                     Humanizer<span className="text-primary">AI</span>
                 </span>
             </h1>
