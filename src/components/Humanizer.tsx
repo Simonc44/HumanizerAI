@@ -110,8 +110,9 @@ export function Humanizer() {
               className="prose prose-base dark:prose-invert max-w-none text-white/90 min-h-[350px] p-4 bg-black/20 rounded-xl border border-white/10"
             >
               {isPending ? (
-                 <div className="flex items-center justify-center h-full min-h-[280px]">
+                 <div className="flex flex-col items-center justify-center h-full min-h-[280px]">
                   <LoaderCircle className="w-8 h-8 text-primary animate-spin" />
+                  <p className="mt-4 text-sm text-muted-foreground animate-pulse">Humanisation en cours...</p>
                  </div>
               ) : humanizedText ? (
                   <p>{humanizedText}</p>
