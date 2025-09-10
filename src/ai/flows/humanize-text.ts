@@ -17,7 +17,7 @@ export const humanizeText = ai.defineFlow(
     outputSchema: z.string(),
   },
   async ({text}) => {
-    const {response} = await ai.generate({
+    const response = await ai.generate({
       model: 'googleai/gemini-1.5-flash',
       prompt: `Rewrite the following text to sound more human. Focus on improving its engagement and authenticity. Your response should be only the rewritten text, without any preamble.\n\nText: ${text}`,
     });
