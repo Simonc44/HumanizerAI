@@ -67,14 +67,14 @@ export function AiDetector() {
 
   return (
     <motion.div whileHover={{ y: -5, transition: { duration: 0.2 } }}>
-    <Card className="w-full shadow-2xl rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10">
+    <Card className="w-full shadow-2xl rounded-2xl bg-card/50 backdrop-blur-xl border-white/10">
       <CardContent className="p-6">
         <div className="grid gap-4">
           <Textarea
             placeholder="Collez le texte à analyser..."
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
-            className="min-h-[250px] text-base rounded-lg bg-black/20 focus-visible:ring-primary border-white/10"
+            className="min-h-[250px] text-base rounded-lg bg-black/20 focus-visible:ring-primary/80 border-white/10 text-white"
             disabled={isPending}
           />
           {error && <p className="text-sm text-destructive">{error}</p>}
