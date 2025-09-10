@@ -8,7 +8,19 @@ export default {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    container: {
+      center: true,
+      padding: '2rem',
+      screens: {
+        '2xl': '1400px',
+      },
+    },
     extend: {
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'radial-border':
+          'radial-gradient(circle at center, hsl(var(--primary) / 0.8), hsl(var(--primary) / 0) 70%)',
+      },
       fontFamily: {
         body: ['"Roboto"', 'sans-serif'],
         headline: ['"Roboto"', 'sans-serif'],
@@ -89,10 +101,15 @@ export default {
             height: '0',
           },
         },
+        'radial-border': {
+          '0%': { transform: 'scale(0.8)', opacity: '0.5' },
+          '100%': { transform: 'scale(2.5)', opacity: '0' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'radial-border': 'radial-border 1s ease-out forwards',
       },
     },
   },

@@ -44,7 +44,7 @@ export function AiDetector() {
       try {
         const res = await analyzeTextHumanity({ text: inputText });
         setProgress(100);
-        setResult(res);
+        setTimeout(() => setResult(res), 300); // Small delay for progress bar to finish
       } catch (e) {
         setError("Une erreur s'est produite lors de l'analyse. Veuillez réessayer.");
         console.error(e);
@@ -66,14 +66,15 @@ export function AiDetector() {
   }
 
   return (
-    <Card className="w-full shadow-sm border rounded-xl">
+    <motion.div whileHover={{ y: -5, transition: { duration: 0.2 } }}>
+    <Card className="w-full shadow-2xl rounded-2xl bg-card/80 backdrop-blur-sm border-border/20">
       <CardContent className="p-6">
         <div className="grid gap-4">
           <Textarea
             placeholder="Collez le texte à analyser..."
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
-            className="min-h-[250px] text-base rounded-lg bg-secondary/50 focus-visible:ring-blue-500"
+            className="min-h-[250px] text-base rounded-lg bg-muted/50 focus-visible:ring-primary"
             disabled={isPending}
           />
           {error && <p className="text-sm text-destructive">{error}</p>}
@@ -81,7 +82,7 @@ export function AiDetector() {
             onClick={handleAnalyze} 
             disabled={isPending || !inputText.trim()} 
             size="lg" 
-            className="w-full md:w-auto justify-self-end bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-sm transition-all duration-300 hover:shadow-md active:scale-95 rounded-lg"
+            className="w-full md:w-auto justify-self-end bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-lg shadow-primary/30 transition-all duration-300 hover:shadow-xl hover:shadow-primary/40 hover:-translate-y-1 active:scale-95 rounded-lg"
           >
             {isPending ? (
               <LoaderCircle className="mr-2 h-5 w-5 animate-spin" />
@@ -98,13 +99,15 @@ export function AiDetector() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="mt-6 pt-6 border-t"
+              className="mt-6 pt-6 border-t border-border/20"
             >
               <div className="space-y-4">
                 <AnimatePresence>
                 {isPending && (
                   <motion.div 
                     className="flex flex-col items-center gap-2"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                   >
                     <p className="text-sm text-muted-foreground font-medium">Analyse en cours...</p>
@@ -116,8 +119,8 @@ export function AiDetector() {
                 <AnimatePresence>
                   {result && !isPending && (
                     <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
+                      initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
                       className="text-center"
                     >
                       <p className="text-lg font-medium mb-2">{getScoreText(result.humanityScore)}</p>
@@ -127,7 +130,7 @@ export function AiDetector() {
                       </h3>
                       <div className="flex items-center gap-4 mt-4 max-w-sm mx-auto">
                         <span className="text-sm text-red-500">IA</span>
-                        <Progress value={(1 - result.humanityScore) * 100} className="w-full h-3 [&>*]:bg-gradient-to-r [&>*]:from-green-500 [&>*]:to-red-500" />
+                        <Progress value={(1 - result.humanityScore) * 100} className="w-full h-3 [&>*]:bg-gradient-to-r [&>*]:from-green-500 [&>*]:to-red-500 rounded-full" />
                         <span className="text-sm text-green-500">Humain</span>
                       </div>
                     </motion.div>
@@ -139,5 +142,6 @@ export function AiDetector() {
         </AnimatePresence>
       </CardContent>
     </Card>
+    </motion.div>
   );
 }
