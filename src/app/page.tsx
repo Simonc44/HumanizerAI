@@ -17,7 +17,7 @@ export default function Home() {
           transition={{ duration: 0.5 }}
         >
           <header className="text-center mb-12">
-            <h1 className="text-6xl md:text-8xl font-balloon tracking-wide text-foreground text-effect-3d">
+            <h1 className="text-6xl md:text-8xl font-headline font-bold tracking-tight text-foreground text-effect-3d">
               Humanizer<span className="text-primary">AI</span>
             </h1>
             <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
