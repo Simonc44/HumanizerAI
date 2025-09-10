@@ -50,7 +50,7 @@ export function Humanizer() {
   return (
     <div className="grid md:grid-cols-2 gap-8 items-start">
       <motion.div whileHover={{ y: -5, transition: { duration: 0.2 } }}>
-        <Card className="w-full shadow-2xl rounded-2xl bg-card/80 backdrop-blur-sm border-border/20">
+        <Card className="w-full shadow-2xl rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10">
           <CardHeader>
               <CardTitle className="text-xl font-semibold flex items-center text-foreground">
                   <Wand2 className="w-5 h-5 mr-3 text-primary" />
@@ -63,7 +63,7 @@ export function Humanizer() {
                 placeholder="Collez votre texte IA ici..."
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
-                className="min-h-[300px] text-base rounded-xl bg-muted/50 border-border/80 focus-visible:ring-primary focus-visible:ring-2"
+                className="min-h-[300px] text-base rounded-xl bg-black/20 border-white/10 focus-visible:ring-primary focus-visible:ring-2"
                 disabled={isPending}
               />
               {error && <p className="text-sm text-destructive font-medium px-1">{error}</p>}
@@ -86,7 +86,7 @@ export function Humanizer() {
       </motion.div>
 
       <motion.div whileHover={{ y: -5, transition: { duration: 0.2 } }}>
-        <Card className="w-full shadow-2xl rounded-2xl bg-card/80 backdrop-blur-sm border-border/20 min-h-[520px]">
+        <Card className="w-full shadow-2xl rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 min-h-[520px]">
           <CardHeader className="flex flex-row justify-between items-center">
               <CardTitle className="text-xl font-semibold flex items-center text-foreground">
                 <span className="w-5 h-5 mr-3 text-primary flex items-center justify-center">
@@ -107,7 +107,7 @@ export function Humanizer() {
           </CardHeader>
           <CardContent>
             <div 
-              className="prose prose-base dark:prose-invert max-w-none text-foreground/90 min-h-[350px] p-4 bg-muted/50 rounded-xl border border-border/80"
+              className="prose prose-base dark:prose-invert max-w-none text-foreground/90 min-h-[350px] p-4 bg-black/20 rounded-xl border border-white/10"
             >
               {isPending ? (
                  <div className="flex items-center justify-center h-full min-h-[280px]">

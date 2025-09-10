@@ -32,7 +32,7 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-background min-h-screen font-body text-foreground">
+    <div className="bg-background min-h-screen font-body text-foreground aurora-bg">
       <main className="container mx-auto px-4 py-16 sm:py-24">
         <motion.div
           variants={containerVariants}
@@ -41,8 +41,10 @@ export default function Home() {
           className="max-w-4xl mx-auto"
         >
           <motion.header variants={itemVariants} className="text-center mb-16">
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-foreground to-muted-foreground pb-2">
-              Humanizer<span className="text-primary">AI</span>
+            <h1 className="text-5xl md:text-7xl font-bold tracking-tight pb-2 group">
+                <span className="bg-clip-text text-transparent bg-gradient-to-b from-foreground to-muted-foreground/80 group-hover:text-shine transition-all duration-500">
+                    Humanizer<span className="text-primary">AI</span>
+                </span>
             </h1>
             <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
               Transformez votre texte IA en contenu humain, authentique et indétectable.
@@ -51,13 +53,13 @@ export default function Home() {
 
           <motion.div variants={itemVariants}>
             <Tabs defaultValue="humanizer" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 bg-muted p-1 h-12 rounded-xl">
-                <TabsTrigger value="humanizer" className="text-base font-medium rounded-lg h-full data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm">
-                  <PenLine className="w-5 h-5 mr-2 text-primary" />
+              <TabsList className="grid w-full grid-cols-2 bg-transparent border border-border/50 p-1 h-12 rounded-xl backdrop-blur-sm">
+                <TabsTrigger value="humanizer" className="text-base font-medium rounded-lg h-full data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:shadow-inner data-[state=active]:shadow-primary/10">
+                  <PenLine className="w-5 h-5 mr-2" />
                   Humanizer
                 </TabsTrigger>
-                <TabsTrigger value="detector" className="text-base font-medium rounded-lg h-full data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm">
-                  <BotMessageSquare className="w-5 h-5 mr-2 text-primary" />
+                <TabsTrigger value="detector" className="text-base font-medium rounded-lg h-full data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:shadow-inner data-[state=active]:shadow-primary/10">
+                  <BotMessageSquare className="w-5 h-5 mr-2" />
                   AI Detector
                 </TabsTrigger>
               </TabsList>

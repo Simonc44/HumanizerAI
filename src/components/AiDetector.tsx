@@ -67,14 +67,14 @@ export function AiDetector() {
 
   return (
     <motion.div whileHover={{ y: -5, transition: { duration: 0.2 } }}>
-    <Card className="w-full shadow-2xl rounded-2xl bg-card/80 backdrop-blur-sm border-border/20">
+    <Card className="w-full shadow-2xl rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10">
       <CardContent className="p-6">
         <div className="grid gap-4">
           <Textarea
             placeholder="Collez le texte à analyser..."
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
-            className="min-h-[250px] text-base rounded-lg bg-muted/50 focus-visible:ring-primary"
+            className="min-h-[250px] text-base rounded-lg bg-black/20 focus-visible:ring-primary border-white/10"
             disabled={isPending}
           />
           {error && <p className="text-sm text-destructive">{error}</p>}
@@ -99,7 +99,7 @@ export function AiDetector() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="mt-6 pt-6 border-t border-border/20"
+              className="mt-6 pt-6 border-t border-white/10"
             >
               <div className="space-y-4">
                 <AnimatePresence>
@@ -111,7 +111,7 @@ export function AiDetector() {
                     exit={{ opacity: 0, y: -10 }}
                   >
                     <p className="text-sm text-muted-foreground font-medium">Analyse en cours...</p>
-                    <Progress value={progress} className="w-full h-2" />
+                    <Progress value={progress} className="w-full h-2 bg-white/10" />
                   </motion.div>
                 )}
                 </AnimatePresence>
@@ -130,7 +130,7 @@ export function AiDetector() {
                       </h3>
                       <div className="flex items-center gap-4 mt-4 max-w-sm mx-auto">
                         <span className="text-sm text-red-500">IA</span>
-                        <Progress value={(1 - result.humanityScore) * 100} className="w-full h-3 [&>*]:bg-gradient-to-r [&>*]:from-green-500 [&>*]:to-red-500 rounded-full" />
+                        <Progress value={(1 - result.humanityScore) * 100} className="w-full h-3 [&>*]:bg-gradient-to-r [&>*]:from-green-500 [&>*]:to-red-500 rounded-full bg-white/10" />
                         <span className="text-sm text-green-500">Humain</span>
                       </div>
                     </motion.div>

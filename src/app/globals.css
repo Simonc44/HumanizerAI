@@ -30,27 +30,27 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
- 
+
   .dark {
-    --background: 222 84% 4%;
+    --background: 222 84% 4.9%;
     --foreground: 210 40% 98%;
-    --card: 224, 71%, 10%;
+    --card: 222 84% 4.9%;
     --card-foreground: 210 40% 98%;
-    --popover: 222 84% 4%;
+    --popover: 222 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 217 91% 60%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 217 33% 17%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
-    --accent: 217 33% 17%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217 33% 25%;
-    --input: 217 33% 17%;
-    --ring: 217 91% 60%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 85.7% 97.3%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 217.2 91.2% 59.8%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
@@ -69,11 +69,53 @@
 }
 
 @layer utilities {
-  .text-effect-3d {
-    text-shadow: 1px 1px 0px hsl(var(--muted-foreground) / 0.8),
-                 2px 2px 0px hsl(var(--muted-foreground) / 0.6),
-                 3px 3px 0px hsl(var(--muted-foreground) / 0.4),
-                 4px 4px 0px hsl(var(--muted-foreground) / 0.2),
-                 5px 5px 0px hsl(var(--muted-foreground) / 0.1);
+  .text-shine {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      90deg,
+      hsl(var(--muted-foreground)),
+      #ffffff,
+      hsl(var(--muted-foreground))
+    );
+    background-size: 200% 100%;
+    animation: shine 5s linear infinite;
+  }
+
+  .aurora-bg {
+    animation: aurora 20s linear infinite;
+    background-image: radial-gradient(
+        ellipse 50% 50% at 20% 40%,
+        hsl(var(--primary) / 0.15),
+        transparent
+      ),
+      radial-gradient(
+        ellipse 50% 50% at 80% 50%,
+        hsl(var(--ring) / 0.15),
+        transparent
+      );
+  }
+
+  @keyframes shine {
+    to {
+      background-position: -200% 0;
+    }
+  }
+
+  @keyframes aurora {
+    0% {
+      background-position: 20% 40%, 80% 50%;
+    }
+    25% {
+      background-position: 30% 60%, 70% 40%;
+    }
+    50% {
+      background-position: 50% 70%, 90% 20%;
+    }
+    75% {
+      background-position: 40% 50%, 60% 60%;
+    }
+    100% {
+      background-position: 20% 40%, 80% 50%;
+    }
   }
 }
