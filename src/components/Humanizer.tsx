@@ -1,12 +1,11 @@
 'use client';
 
-import { useState, useTransition, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useTransition } from 'react';
+import { motion } from 'framer-motion';
 import { Copy, Wand2, LoaderCircle, PenLine } from 'lucide-react';
-import { humanizeTextFlow } from '@/ai/flows/humanize-text';
-import { analyzeTextHumanity } from '@/ai/flows/analyze-text-humanity';
+import { humanizeText } from '@/ai/flows/humanize-text';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 
@@ -28,10 +27,10 @@ export function Humanizer() {
 
     startTransition(async () => {
       try {
-        const result = await humanizeTextFlow({ text: inputText });
+        const result = await humanizeText({ text: inputText });
         setHumanizedText(result);
       } catch (e) {
-        setError('Une erreur est survenue. Veuillez réessayer.');
+        setError("Une erreur est survenue lors de l'humanisation. Veuillez réessayer.");
         console.error(e);
       }
     });
@@ -47,64 +46,78 @@ export function Humanizer() {
   };
 
   return (
-    <div className="grid md:grid-cols-2 gap-6 items-start">
-      <Card className="w-full shadow-sm border rounded-xl">
-        <CardContent className="p-6">
+    <div className="grid md:grid-cols-2 gap-8 items-start">
+      <Card className="w-full shadow-lg rounded-2xl border-border/60">
+        <CardHeader>
+            <CardTitle className="text-xl font-semibold flex items-center text-foreground">
+                <Wand2 className="w-5 h-5 mr-3 text-primary" />
+                Votre Texte
+            </CardTitle>
+        </CardHeader>
+        <CardContent className="p-6 pt-0">
           <div className="grid gap-4">
             <Textarea
-              placeholder="Collez votre texte ici..."
+              placeholder="Collez votre texte IA ici..."
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
-              className="min-h-[300px] text-base rounded-lg bg-secondary/50 focus-visible:ring-blue-500"
+              className="min-h-[300px] text-base rounded-xl bg-muted/50 border-border/80 focus-visible:ring-primary focus-visible:ring-2"
               disabled={isPending}
             />
-            {error && <p className="text-sm text-destructive">{error}</p>}
+            {error && <p className="text-sm text-destructive font-medium px-1">{error}</p>}
             <Button 
               onClick={handleHumanize} 
               disabled={isPending || !inputText.trim()} 
               size="lg" 
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-sm transition-all duration-300 hover:shadow-md active:scale-95 rounded-lg"
+              className="w-full font-bold text-base py-6 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 active:scale-95"
             >
               {isPending ? (
                 <LoaderCircle className="mr-2 h-5 w-5 animate-spin" />
               ) : (
                 <Wand2 className="mr-2 h-5 w-5" />
               )}
-              Humaniser
+              Humaniser le Texte
             </Button>
           </div>
         </CardContent>
       </Card>
 
-      <Card className="w-full shadow-sm border rounded-xl min-h-[462px]">
-        <CardContent className="p-6">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-semibold flex items-center">
-              <PenLine className="w-5 h-5 mr-2 text-blue-600" />
+      <Card className="w-full shadow-lg rounded-2xl border-border/60 min-h-[504px]">
+        <CardHeader className="flex flex-row justify-between items-center">
+            <CardTitle className="text-xl font-semibold flex items-center text-foreground">
+              <PenLine className="w-5 h-5 mr-3 text-primary" />
               Texte Humanisé
-            </h3>
+            </CardTitle>
             <Button
               variant="ghost"
               size="icon"
               onClick={handleCopy}
               disabled={!humanizedText || isPending}
-              className="text-muted-foreground hover:text-foreground"
+              className="text-muted-foreground hover:text-primary rounded-full"
             >
               <Copy className="h-5 w-5" />
               <span className="sr-only">Copier</span>
             </Button>
-          </div>
-          <div className="prose prose-sm max-w-none text-base text-foreground min-h-[300px] p-4 bg-secondary/50 rounded-lg">
-            {humanizedText}
-            {isPending && (
-              <span className="inline-block w-2 h-5 bg-blue-500 animate-pulse ml-1 rounded-sm" />
-            )}
-            {!humanizedText && !isPending && (
-              <div className="text-muted-foreground flex items-center justify-center h-full min-h-[200px]">
-                <p>Le texte humanisé apparaîtra ici.</p>
+        </CardHeader>
+        <CardContent className="p-6 pt-0">
+          <motion.div 
+            key={humanizedText ? 'text' : 'placeholder'}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="prose prose-base max-w-none text-foreground/90 min-h-[350px] p-4 bg-muted/50 rounded-xl border border-border/80"
+          >
+            {isPending ? (
+               <div className="flex items-center justify-center h-full min-h-[280px]">
+                <LoaderCircle className="w-8 h-8 text-primary animate-spin" />
+               </div>
+            ) : humanizedText ? (
+                humanizedText
+            ) : (
+              <div className="text-muted-foreground flex items-center justify-center h-full min-h-[280px]">
+                <p>Le résultat humanisé apparaîtra ici...</p>
               </div>
             )}
-          </div>
+          </motion.div>
         </CardContent>
       </Card>
     </div>
