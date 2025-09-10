@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import type { HumanizeTextInput } from '@/ai/flows/schemas';
 
 export function Humanizer() {
   const [isPending, startTransition] = useTransition();
@@ -27,7 +28,7 @@ export function Humanizer() {
 
     startTransition(async () => {
       try {
-        const result = await humanizeText({ text: inputText });
+        const result = await humanizeText({ text: inputText } as HumanizeTextInput);
         setHumanizedText(result);
       } catch (e) {
         setError("Une erreur est survenue lors de l'humanisation. Veuillez réessayer.");

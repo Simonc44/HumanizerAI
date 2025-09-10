@@ -4,20 +4,15 @@
  * @fileOverview Rewrites text to sound more human.
  *
  * - humanizeText - A function that rewrites the given text to sound more human.
- * - HumanizeTextInput - The input type for the humanizeText function.
  */
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
-
-export const HumanizeTextInputSchema = z.object({
-  text: z.string().describe('The text to humanize.'),
-});
-export type HumanizeTextInput = z.infer<typeof HumanizeTextInputSchema>;
+import { HumanizeTextInputSchema } from './schemas';
 
 export const humanizeText = ai.defineFlow(
   {
-    name: 'humanizeTextFlow',
+    name: 'humanizeText',
     inputSchema: HumanizeTextInputSchema,
     outputSchema: z.string(),
   },
