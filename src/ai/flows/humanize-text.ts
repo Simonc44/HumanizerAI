@@ -15,7 +15,7 @@ export const HumanizeTextInputSchema = z.object({
 });
 export type HumanizeTextInput = z.infer<typeof HumanizeTextInputSchema>;
 
-const humanizeTextFlow = ai.defineFlow(
+export const humanizeText = ai.defineFlow(
   {
     name: 'humanizeTextFlow',
     inputSchema: HumanizeTextInputSchema,
@@ -30,7 +30,3 @@ const humanizeTextFlow = ai.defineFlow(
     return output ?? '';
   }
 );
-
-export async function humanizeText(input: HumanizeTextInput): Promise<string> {
-    return await humanizeTextFlow(input);
-}
