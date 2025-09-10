@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from 'react';
 import { motion } from 'framer-motion';
-import { Copy, Wand2, LoaderCircle } from 'lucide-react';
+import { Copy, Wand2, LoaderCircle, PenLine } from 'lucide-react';
 import { humanizeText } from '@/ai/flows/humanize-text';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
