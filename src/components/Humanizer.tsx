@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Copy, Wand2, LoaderCircle, PenLine } from 'lucide-react';
 import { humanizeText } from '@/ai/flows/humanize-text';
@@ -28,8 +28,10 @@ export function Humanizer() {
 
     startTransition(async () => {
       try {
-        const result = await humanizeText({ text: inputText } as HumanizeTextInput);
-        setHumanizedText(result);
+        const stream = await humanizeText({ text: inputText } as HumanizeTextInput);
+        for await (const chunk of stream) {
+          setHumanizedText(prev => prev + chunk);
+        }
       } catch (e) {
         setError("Une erreur est survenue lors de l'humanisation. Veuillez réessayer.");
         console.error(e);
@@ -85,7 +87,7 @@ export function Humanizer() {
       <Card className="w-full shadow-lg rounded-2xl border-border/60 min-h-[504px]">
         <CardHeader className="flex flex-row justify-between items-center">
             <CardTitle className="text-xl font-semibold flex items-center text-foreground">
-              <PenLine className="w-5 h-5 mr-3 text-primary" />
+              <PenLine className={`w-5 h-5 mr-3 text-primary ${isPending ? 'animate-writing-pencil' : ''}`} />
               Texte Humanisé
             </CardTitle>
             <Button
@@ -107,12 +109,12 @@ export function Humanizer() {
             transition={{ duration: 0.5 }}
             className="prose prose-base max-w-none text-foreground/90 min-h-[350px] p-4 bg-muted/50 rounded-xl border border-border/80"
           >
-            {isPending ? (
+            {isPending && !humanizedText ? (
                <div className="flex items-center justify-center h-full min-h-[280px]">
                 <LoaderCircle className="w-8 h-8 text-primary animate-spin" />
                </div>
             ) : humanizedText ? (
-                humanizedText
+                <span>{humanizedText}<span className="animate-typing-cursor">|</span></span>
             ) : (
               <div className="text-muted-foreground flex items-center justify-center h-full min-h-[280px]">
                 <p>Le résultat humanisé apparaîtra ici...</p>
