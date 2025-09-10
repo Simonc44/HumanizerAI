@@ -12,6 +12,7 @@ export default {
       fontFamily: {
         body: ['"Roboto"', 'sans-serif'],
         headline: ['"Roboto"', 'sans-serif'],
+        balloon: ['"Luckiest Guy"', 'cursive'],
         code: ['monospace'],
       },
       colors: {

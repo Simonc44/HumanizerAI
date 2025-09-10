@@ -17,8 +17,17 @@ export default function Home() {
           transition={{ duration: 0.5 }}
         >
           <header className="text-center mb-12">
-            <h1 className="text-5xl md:text-6xl font-bold font-headline tracking-tight text-foreground">
-              Humanizer<span className="text-primary">AI</span>
+            <h1 className="text-6xl md:text-8xl font-balloon tracking-wide text-foreground" style={{ textShadow: '4px 4px 0px rgba(0,0,0,0.1)' }}>
+              <span className="text-blue-500">H</span>
+              <span className="text-red-500">u</span>
+              <span className="text-yellow-500">m</span>
+              <span className="text-green-500">a</span>
+              <span className="text-purple-500">n</span>
+              <span className="text-pink-500">i</span>
+              <span className="text-orange-500">z</span>
+              <span className="text-teal-500">e</span>
+              <span className="text-primary">r</span>
+              <span className="text-primary text-5xl md:text-7xl">AI</span>
             </h1>
             <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
               Transformez votre texte IA en contenu humain, authentique et indétectable.
