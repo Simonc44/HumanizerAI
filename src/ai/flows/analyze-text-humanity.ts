@@ -37,7 +37,7 @@ const analyzeTextHumanityFlow = ai.defineFlow(
   },
   async input => {
     const llmResponse = await ai.generate({
-      model: 'googleai/gemini-1.5-flash',
+      model: 'googleai/gemini-2.5-flash',
       prompt: `You are an AI text analyst specializing in determining the degree to which a text exhibits human-like characteristics.  Analyze the following text and provide a "humanityScore" between 0 and 1.0, where 0 indicates completely non-human and 1.0 indicates highly human.
 
 Consider aspects such as tone, emotional cues, use of natural language, presence of colloquialisms, and any other features that make text sound human-like.
