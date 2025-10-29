@@ -1,5 +1,7 @@
 # HumanizerAI
 
+![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)
+
 HumanizerAI est une application web conçue pour affiner et analyser le texte. Elle transforme le contenu généré par l'IA en une écriture plus naturelle et authentique, et peut également évaluer si un texte a été probablement écrit par un humain ou une IA.
 
 ## Fonctionnalités
